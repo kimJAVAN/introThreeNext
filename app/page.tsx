@@ -79,7 +79,7 @@ const SANGOKUSHI_DATA: SangokushiItem[] = [
     { id: 9, title: '창천항로', image: '/sangokushi/9.png', type: '만화'},
     { id: 10, title: '만화 삼국지', image: '/sangokushi/10.jpg', type: '만화'},
     { id: 11, title: '요코야마 미츠테루 삼국지', image: '/sangokushi/11.png', type: '소설'},
-    { id: 1, title: '삼국지톡', image: '/sangokushi/1.png', type: '게임'},
+    { id: 1, title: '삼국지톡', image: '/sangokushi/1.png', type: '만화'},
     { id: 2, title: '적벽', image: '/sangokushi/2.gif', type: '뮤지컬'},
     { id: 3, title: '진・삼국무쌍 ORIGINS', image: '/sangokushi/3.png', type: '게임'},
     { id: 20, title: '진・삼국무쌍 7 with 맹장전', image: '/sangokushi/20.png', type: '게임'},
