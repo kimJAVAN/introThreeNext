@@ -360,7 +360,7 @@ const renderHanjaText = (text: string | null): (React.ReactNode)[] | null => {
                             <button key={k} className={relation[k] ? 'chip active' : 'chip'} onClick={() => toggleRelation(k)}>{k}</button>
                         ))}
                     </div>
-                    <input value={relationEtc} onChange={e => setRelationEtet(e.target.value)} placeholder="기타" />
+                    <input value={relationEtc} onChange={e => setRelationEtc(e.target.value)} placeholder="기타" />
                 </div>
 
                 <div className="section">
