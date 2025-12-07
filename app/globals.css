@@ -488,6 +488,15 @@ body {
   cursor: pointer;
 }
 
+.search-modal-btn{
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border:none;
+  width: 80px;
+  height: 40px;
+  border-radius: 12px;
+}
+
 .pageWrap .img-make-button:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 30px rgba(102, 126, 234, 0.5);
@@ -592,7 +601,7 @@ body {
   border: 2px solid #ddd;
   border-radius: 8px;
   font-size: 16px;
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
   box-sizing: border-box;
 }
 
