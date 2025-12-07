@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useState, useRef, ChangeEvent } from 'react';
+import * as React from 'react'; 
+import { useState, useRef, ChangeEvent } from 'react'; 
+
 import './globals.css';
 
 // 1. 타입 정의
