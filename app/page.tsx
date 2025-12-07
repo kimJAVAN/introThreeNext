@@ -295,12 +295,13 @@ export default function Main() {
     };
 
     const hanjaRegex = /[\u4E00-\u9FFF]/;
-    const renderHanjaText = (text: string | null): (string | JSX.Element)[] | null => {
-        if (!text) return null;
-        return text.split('').map((char, idx) =>
-            hanjaRegex.test(char) ? <span key={idx} className={fontFamily}>{char}</span> : char
-        );
-    };
+
+const renderHanjaText = (text: string | null): (React.ReactNode)[] | null => {
+    if (!text) return null;
+    return text.split('').map((char, idx) =>
+        hanjaRegex.test(char) ? <span key={idx} className={fontFamily}>{char}</span> : char
+    );
+};
 
     // 6. 렌더링
     // ==============================================================================
