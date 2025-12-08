@@ -455,8 +455,9 @@ body {
 
 .pageWrap .choose-jin-btn {
   text-align: center;
-  aspect-ratio: 1/1;
+  /* aspect-ratio: 1/1; */
   display: flex;
+  height: 48px;
   justify-content: center;
   align-items: center;
   font-size: 28px;
