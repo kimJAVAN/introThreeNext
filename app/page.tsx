@@ -102,6 +102,7 @@ const SANGOKUSHI_DATA: SangokushiItem[] = [
     { id: 19, title: '삼국지환상대륙', image: '/sangokushi/19.png', type: '게임'},
     { id: 28, title: '황석영 삼국지', image: '/sangokushi/28.jpg', type: '소설'},
     { id: 35, title: '삼국군영전 화봉요원', image: '/sangokushi/35.jpg', type: '만화'},
+    { id: 36, title: '와룡: 폴른 다이너스티', image: '/sangokushi/36.jpg', type: '게임'},
 ];
 
 export default function Main() {
