@@ -84,7 +84,7 @@ const SANGOKUSHI_DATA: SangokushiItem[] = [
     { id: 3, title: '진・삼국무쌍 ORIGINS', image: '/sangokushi/3.png', type: '게임'},
     { id: 20, title: '진・삼국무쌍 7 with 맹장전', image: '/sangokushi/20.png', type: '게임'},
     { id: 21, title: '진・삼국무쌍８', image: '/sangokushi/21.png', type: '게임'},
-    { id: 22, title: '진·삼국무쌍8 Empires', image: '/sangokushi/22.png', type: '게임'},
+    { id: 22, title: '진・삼국무쌍 8 Empires', image: '/sangokushi/22.png', type: '게임'},
     { id: 23, title: '삼국지 14', image: '/sangokushi/23.png', type: '게임'},
     { id: 25, title: '삼국지 13', image: '/sangokushi/25.jpg', type: '게임'},
     { id: 24, title: '삼국지 12', image: '/sangokushi/24.png', type: '게임'},
@@ -103,6 +103,8 @@ const SANGOKUSHI_DATA: SangokushiItem[] = [
     { id: 28, title: '황석영 삼국지', image: '/sangokushi/28.jpg', type: '소설'},
     { id: 35, title: '삼국군영전 화봉요원', image: '/sangokushi/35.jpg', type: '만화'},
     { id: 36, title: '와룡: 폴른 다이너스티', image: '/sangokushi/36.jpg', type: '게임'},
+    { id: 37, title: '공명의 아내', image: '/sangokushi/37.jpg', type: '만화'},
+    { id: 38, title: '삼국지8 REMAKE', image: '/sangokushi/38.png', type: '게임'},
 ];
 
 export default function Main() {
