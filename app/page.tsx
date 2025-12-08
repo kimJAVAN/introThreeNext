@@ -168,11 +168,15 @@ export default function Main() {
     // 5. 이벤트 핸들러 및 로직
     // ==============================================================================
     const onUploadImage = (e: ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0]; 
-        if (!file) return;
-        const url = URL.createObjectURL(file);
-        setProfileImg(url);
+    const file = e.target.files?.[0]; 
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const base64 = e.target?.result as string;
+        setProfileImg(base64);
     };
+    reader.readAsDataURL(file);
+};
 
     const toggleMajor = (key: keyof MajorsState) =>
         setMajors(prev => ({ ...prev, [key]: !prev[key] }));
@@ -210,15 +214,19 @@ export default function Main() {
         }
     };
 
-    const handleFavImg = (idx: number, file: File | undefined) => {
-        if (!file) return;
-        const url = URL.createObjectURL(file);
+const handleFavImg = (idx: number, file: File | undefined) => {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const base64 = e.target?.result as string;
         setFavList(prev => {
             const updated = [...prev];
-            updated[idx].img = url;
+            updated[idx].img = base64;
             return updated;
         });
     };
+    reader.readAsDataURL(file);
+};
 
     const handleFavName = (idx: number, value: string) => {
         setFavList(prev => {
@@ -242,18 +250,40 @@ export default function Main() {
         setSelectedType('전체');
     };
 
-    const selectFromSearch = (item: SangokushiItem) => {
-        if (currentSearchIndex !== null) {
-            setFavList(prev => {
-                const updated = [...prev];
-                updated[currentSearchIndex].img = item.image;
-                updated[currentSearchIndex].name = item.title;
-                return updated;
+const selectFromSearch = (item: SangokushiItem) => {
+    if (currentSearchIndex !== null) {
+        // 상대 경로를 절대 경로로 변환
+        const imageUrl = window.location.origin + item.image;
+        
+        fetch(imageUrl)
+            .then(res => res.blob())
+            .then(blob => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const base64 = e.target?.result as string;
+                    setFavList(prev => {
+                        const updated = [...prev];
+                        updated[currentSearchIndex].img = base64;
+                        updated[currentSearchIndex].name = item.title;
+                        return updated;
+                    });
+                };
+                reader.readAsDataURL(blob);
+            })
+            .catch(error => {
+                console.error('이미지 로드 실패:', error);
+                // 실패하면 원본 URL 그대로 사용
+                setFavList(prev => {
+                    const updated = [...prev];
+                    updated[currentSearchIndex].img = item.image;
+                    updated[currentSearchIndex].name = item.title;
+                    return updated;
+                });
             });
-            setShowSearchModal(false);
-            setCurrentSearchIndex(null);
-        }
-    };
+        setShowSearchModal(false);
+        setCurrentSearchIndex(null);
+    }
+};
 
     // 검색 필터링: searchQuery를 기반으로 필터링
     const filteredSangokushi: SangokushiItem[] = SANGOKUSHI_DATA.filter(item => {
@@ -272,27 +302,27 @@ export default function Main() {
         }
     };
 
-    const exportPNG = async () => {
-        const node = canvasRef.current;
-        if (!node) return;
-        
-        const html2canvas = (await import('html2canvas')).default as unknown as (
-            element: HTMLElement, options?: any
-        ) => Promise<HTMLCanvasElement>;
-        
-        const scale = 2;
-        const canvas = await html2canvas(node, { 
-            backgroundColor: '#ffffff', 
-            scale, 
-            useCORS: true 
-        });
-        
-        const dataUrl = canvas.toDataURL('image/png');
-        const link = document.createElement('a');
-        link.href = dataUrl;
-        link.download = `profile-card-${Date.now()}.png`;
-        link.click();
-    };
+const exportPNG = async () => {
+    const node = canvasRef.current;
+    if (!node) return;
+    
+    const html2canvas = (await import('html2canvas')).default as unknown as (
+        element: HTMLElement, options?: any
+    ) => Promise<HTMLCanvasElement>;
+    
+    const scale = 2;
+    const canvas = await html2canvas(node, { 
+        backgroundColor: '#ffffff', 
+        scale,
+        logging: false
+    });
+    
+    const dataUrl = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = `profile-card-${Date.now()}.png`;
+    link.click();
+};
 
     const hanjaRegex = /[\u4E00-\u9FFF]/;
 
@@ -640,10 +670,14 @@ const renderHanjaText = (text: string | null): (React.ReactNode)[] | null => {
                         <div className='img-wrapper'>
                             {favList.map((item, idx) => (
                                 <div className='img-unit' key={idx}>
-                                    <div className='img-overflow'>
-                                        {item.img ? <img src={item.img} alt={`fav-${idx}`} crossOrigin="anonymous" /> : <div className='img-placeholder'>+</div>}
+                                    <div className='img-overflow' style={item.img ? {
+                                        backgroundImage: `url(${item.img})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center'
+                                    } : {}}>
+                                        {!item.img && <div className='img-placeholder'>+</div>}
                                     </div>
-                                    {item.name && <p className='sul-name'>{item.name}</p>}
+                                    {item.name && <p className='sul-name' style={{ wordBreak: 'keep-all', wordWrap: 'break-word' }}>{item.name}</p>}
                                 </div>
                             ))}
                         </div>
