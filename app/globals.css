@@ -677,30 +677,34 @@ body {
 .close-button:hover {
   background: #d32f2f;
 }
-
 @media screen and (max-width: 768px) {
   body {
     padding: 10px;
     align-items: flex-start;
+    overflow-x: hidden;
   }
   
   .pageWrap {
     flex-direction: column-reverse;
     padding: 0;
     gap: 12px;
+    width: 100%;
+    overflow-x: hidden;
   }
   
   .pageWrap .canvasWrap {
-    align-items: flex-start;
     width: 100%;
     overflow-x: auto;
+    overflow-y: visible;
     -webkit-overflow-scrolling: touch;
+    align-items: flex-start;
   }
   
   .pageWrap .canvas {
     width: 1000px;
     min-width: 1000px;
     flex-shrink: 0;
+    margin: 0;
   }
   
   .pageWrap .sidebar {
@@ -708,12 +712,21 @@ body {
     height: auto;
     width: 100%;
     max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .pageWrap .sidebar input,
+  .pageWrap .sidebar select,
+  .pageWrap .sidebar textarea {
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .pageWrap .img-make-button {
     width: 100%;
     padding: 12px 20px;
     font-size: 15px;
+    box-sizing: border-box;
   }
 
   .modal-content {
